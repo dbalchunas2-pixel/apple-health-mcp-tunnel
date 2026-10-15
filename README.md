@@ -1,6 +1,10 @@
 # Apple Health MCP Tunnel
 
-Remote tunnel for the `apple-health-mcp-unofficial` MCP server, following the same Railway WebSocket tunnel pattern as the Safari MCP.
+Let your AI assistant read your Apple Health data - workouts, heart rate, sleep, activity - without it ever leaving your Mac. This repo is the public, reusable tunnel half of that setup: a Railway-hosted WebSocket hub that securely exposes a local `apple-health-mcp-unofficial` MCP server to remote AI clients.
+
+**Why this pattern?** Apple Health data is private. It lives on your iPhone and your Mac. Instead of uploading it to a third-party service, a thin tunnel client runs on your Mac (managed by launchd), connects out to a stateless Railway hub, and the hub forwards authenticated MCP requests to the local server. Nothing is stored in the cloud, nothing works when your Mac is offline, and you revoke access by killing one process.
+
+Same Railway WebSocket tunnel pattern as the Safari MCP.
 
 ## Architecture
 
@@ -19,7 +23,7 @@ Apple Health Data (exported from iPhone)
 ## Files
 
 | File | Purpose |
-|------|--------|
+|------|---------|
 | `railway-hub.js` | Railway WebSocket hub - HTTP /mcp + WS /tunnel |
 | `package.json` | Railway deps (only `ws`) |
 | `Dockerfile` | Railway container build |
@@ -69,3 +73,7 @@ Apple Health Data (exported from iPhone)
 - `apple_health_reimport`
 - `apple_health_daily_review` (prompt)
 - `apple_health_weekly_review` (prompt)
+
+## License
+
+MIT
